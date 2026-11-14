@@ -5,7 +5,18 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include <QQuickItem>
 #include "app/ApplicationServices.h"
+namespace {
+// QML items are linked by visual parents (childItems), not always by QObject parents,
+// so QObject::findChild cannot see delegates created by Repeater/Loader/ScrollView.
+QObject* findByName(QQuickItem* item, const QString& name) {
+ if(!item) return nullptr;
+ if(item->objectName()==name) return item;
+ for(QQuickItem* child:item->childItems()) if(auto* found=findByName(child,name)) return found;
+ return nullptr;
+}
+}
 class ApplicationTests:public QObject {
  Q_OBJECT
 private slots:
@@ -46,10 +57,10 @@ private slots:
    auto window=qobject_cast<QQuickWindow*>(engine.rootObjects()[0]); QVERIFY(window);
    for(int size:{700,1100}){window->resize(size,700);
      for(int index:{0,1,2,0,2,1}) {
-       auto button=window->findChild<QObject*>(QString("nav%1").arg(index));QVERIFY(button);
+       auto button=findByName(window->contentItem(),QString("nav%1").arg(index));QVERIFY(button);
        QVERIFY(QMetaObject::invokeMethod(button,"clicked")); QCOMPARE(service.currentModule(),index);
        QCoreApplication::processEvents();
-       auto loader=window->findChild<QObject*>("moduleLoader"); QVERIFY(loader);
+       auto loader=findByName(window->contentItem(),"moduleLoader"); QVERIFY(loader);
        QCOMPARE(loader->property("status").toInt(),1);
      }
    }
