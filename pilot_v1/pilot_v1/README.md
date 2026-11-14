@@ -33,18 +33,12 @@ No NoData defined. Kept at native resolution; do not merge with the DEM.
 ## Limitations
 - slope and roughness correlate at r = 0.99 (Pearson) and both come from the same 20 m DEM. Treat roughness as secondary, not independent evidence.
 - 20 m pixels smooth out rocks, small craters and steep faces. Slope maxima are underestimated on the scarp. These layers show regional terrain, not rock-scale hazards.
-- No hazard thresholds have been defined yet; they must come from a cited source.
+- Hazard thresholds are in thresholds.json (rover reference values, not astronaut limits; sources cited there). slope_class_rover_ref.tif is derived from them.
 - Mineral targets (CRISM) and environment data are not included yet.
 
 ## Provenance
 Source: NASA Mars 2020 Jezero CTX orthomosaic and CTX DEM (original files untouched).
 Processing: gdal_translate -projwin, gdaldem slope/roughness -compute_edges, NoData relabel to -9999.
-
-Dataset: Mars 2020 Jezero Crater CTX orthomosaic (5 m) and CTX DEM (20 m), M20_JezeroCrater_CTXortho_mosaic_5m / M20_JezeroCrater_CTXDEM_20m. Version/URL: <indirdiğin sayfadan ekle>
-
-Dataset: Calef, F. (2021). Mars 2020 Science Investigation CTX DEM Mosaic [Data set]. USGS Astrogeology Science Center. https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic
-Files used: M20_JezeroCrater_CTXDEM_20m.tif (20 m DEM), M20_JezeroCrater_CTXortho_mosaic_5m.tif (5 m orthomosaic).
-License: Public domain (per USGS catalog record); cite authors.
 
 Dataset: Calef, F. (2021). Mars 2020 Science Investigation CTX DEM Mosaic [Data set]. USGS Astrogeology Science Center. https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic
 Files used: M20_JezeroCrater_CTXDEM_20m.tif (20 m DEM), M20_JezeroCrater_CTXortho_mosaic_5m.tif (5 m orthomosaic).
