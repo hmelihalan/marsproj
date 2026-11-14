@@ -87,12 +87,13 @@ Same method (KML footprint projected to the pilot CRS, intersected with the pilo
 
 - frt0001fb74: the bounding box suggested ~88% in longitude; the real footprint is skewed and covers about half. Bounding boxes overstate coverage.
 - hrl000040ff is the only product that fully covers the pilot box, at half the spatial resolution (36 m vs 18 m; one 36 m pixel spans ~1.8 cells of the 20 m routing grid).
-- The two 18 m products together might cover the box (frt00005c5e covers the north, frt0001fb74 part of the south-east) but their union and the lighting difference (incidence 64 vs 39 deg) have **not** been evaluated.
+- Union of the two 18 m footprints (frt00005c5e + frt0001fb74) covers **98.4%** of the pilot box. The uncovered part is 0.39 km2 (1.6%), a sliver in the SW corner (about 1.4 km east-west by 0.5 km north-south from the corner). The two footprints overlap each other inside the box over 8.47 km2 (34% of the box), where both observations exist.
+- Combining them is not free: the two observations differ in date (2007 vs 2011), illumination (incidence 64 vs 39 deg) and viewing geometry, so parameter values are not directly comparable and a seam would appear in a mosaic. Whether and how to merge is **undecided**.
 - Same limits as before: KML is the product extent, not a valid-pixel mask; CRISM-to-CTX/DEM registration is not measured.
 
 ## Open items
 
-1. Optional: compute the union coverage of frt00005c5e + frt0001fb74 (and the two partial products) from their KML footprints; check valid-pixel coverage and bad bands inside the pilot box once label/data are read.
+1. Optional: check valid-pixel coverage and bad bands inside the pilot box once labels/data are read (KML gives extent only). The footprint union for the two 18 m products is done (98.4%).
 2. Read the label of each overlapping product: pixel size, CRS, parameter definitions, bad-pixel conventions.
 3. Download the SIM 3464 database and measure its offset against `ctx_5m.tif` at several features.
 4. Confirm license and citation text for each source.
