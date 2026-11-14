@@ -53,8 +53,8 @@ Pilot box (computed from the README CRS parameters): lon 77.387-77.476 E, lat 18
 | Product | Pixel | Lat range | Lon range | Pilot box coverage (bbox) | Incidence | Verdict |
 |---|---|---|---|---|---|---|
 | frt00005c5e_07_if166j | 18 m | 18.3648-18.6352 | 77.2790-77.5586 | bbox: full. **True footprint (KML): ~80% of pilot area**; SW and SE corners outside, NW and NE inside | 63.8 | best candidate, south part missing |
-| frt0001fb74_07_if166j | 18 m | 18.2698-18.5120 | 77.3984-77.6610 | lat full, lon ~88% (west strip ~0.011 deg missing) | 39.1 | candidate, better lighting |
-| hrl000040ff_07_if183j | 36 m | 18.2766-18.7327 | 77.2752-77.5611 | full | 55.6 | candidate, coarser |
+| frt0001fb74_07_if166j | 18 m | 18.2698-18.5120 | 77.3984-77.6610 | bbox: lat full, lon ~88%. **True footprint (KML): ~52% of pilot area** (only SE corner inside) | 39.1 | partial, better lighting |
+| hrl000040ff_07_if183j | 36 m | 18.2766-18.7327 | 77.2752-77.5611 | bbox: full. **True footprint (KML): 100% of pilot area**, all four corners inside | 55.6 | only product fully covering the box, coarser (36 m) |
 | frt000047a3_07_if166j | 18 m | 18.4429-18.6881 | 77.3758-77.6420 | lon full, lat ~50% (south missing) | 58.0 | partial |
 | frt00005850_07_if167j | 18 m | 18.1125-18.4291 | 77.1923-77.5035 | lon full, lat ~30% (north part only) | 64.1 | partial |
 | frt000066a4_07_if166j | 18 m | 18.3425-18.5873 | 77.4690-77.7322 | east sliver ~0.007 deg only | 60.0 | marginal, likely none |
@@ -73,11 +73,26 @@ The ODE product KML (`frt00005c5e_07_if166j_mtr3_xml.kml`, planetocentric lon/la
 - Pilot corners NW and NE are inside the footprint; SW and SE are outside (the missing part is the southern edge).
 - The bounding-box estimate ("full") overstated coverage, as expected.
 - Limits of this check: the KML polygon is the product extent, not a valid-pixel mask, so no-data pixels inside it are not accounted for. Geolocation accuracy of CRISM against the CTX/DEM layers is **not measured**.
-- Same check not yet done for frt0001fb74, hrl000040ff and the two partial products.
+- Same check not yet done for the two partial products (frt000047a3, frt00005850).
+
+### True footprint check: frt0001fb74 and hrl000040ff
+
+Same method (KML footprint projected to the pilot CRS, intersected with the pilot box).
+
+| Product | Footprint km2 | Intersection km2 | Share of pilot box | Corners inside |
+|---|---|---|---|---|
+| frt00005c5e (18 m) | 164.4 | 20.09 | 80.3% | NW, NE |
+| frt0001fb74 (18 m) | 154.3 | 12.99 | 52.0% | SE only |
+| hrl000040ff (36 m) | 303.6 | 25.00 | 100% | all four |
+
+- frt0001fb74: the bounding box suggested ~88% in longitude; the real footprint is skewed and covers about half. Bounding boxes overstate coverage.
+- hrl000040ff is the only product that fully covers the pilot box, at half the spatial resolution (36 m vs 18 m; one 36 m pixel spans ~1.8 cells of the 20 m routing grid).
+- The two 18 m products together might cover the box (frt00005c5e covers the north, frt0001fb74 part of the south-east) but their union and the lighting difference (incidence 64 vs 39 deg) have **not** been evaluated.
+- Same limits as before: KML is the product extent, not a valid-pixel mask; CRISM-to-CTX/DEM registration is not measured.
 
 ## Open items
 
-1. Repeat the KML footprint check for frt0001fb74 and hrl000040ff (frt00005c5e done: ~80% coverage).
+1. Optional: compute the union coverage of frt00005c5e + frt0001fb74 (and the two partial products) from their KML footprints; check valid-pixel coverage and bad bands inside the pilot box once label/data are read.
 2. Read the label of each overlapping product: pixel size, CRS, parameter definitions, bad-pixel conventions.
 3. Download the SIM 3464 database and measure its offset against `ctx_5m.tif` at several features.
 4. Confirm license and citation text for each source.
