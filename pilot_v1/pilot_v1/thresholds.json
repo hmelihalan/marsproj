@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "label": "ROVER REFERENCE THRESHOLDS - NOT ASTRONAUT LIMITS. Adjustable defaults.",
+  "slope_deg": {
+    "warn": 10,
+    "high_cost": 15,
+    "exclude": 24
+  },
+  "sources": {
+    "exclude": "Verma, V. (2026-10-12), NASA Science blog 'Tracks Along the Longest Drive on Another World': Perseverance tilt limit raised to 24 deg.",
+    "warn_and_high_cost": "10/15 deg classes from an academic traversability study (arXiv 2405.12790), citing 15 deg nominal Perseverance limit. 10 deg is that study's own assumption."
+  },
+  "limitations": [
+    "Slope from 20 m DEM is a ~60 m average and underestimates steep faces.",
+    "Rover tilt limits are wheel-scale; astronaut EVA limits not sourced.",
+    "Class edges: lower bound inclusive. 255 = unknown, never treated as safe."
+  ]
+}

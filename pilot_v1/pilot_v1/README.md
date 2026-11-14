@@ -33,7 +33,7 @@ No NoData defined. Kept at native resolution; do not merge with the DEM.
 ## Limitations
 - slope and roughness correlate at r = 0.99 (Pearson) and both come from the same 20 m DEM. Treat roughness as secondary, not independent evidence.
 - 20 m pixels smooth out rocks, small craters and steep faces. Slope maxima are underestimated on the scarp. These layers show regional terrain, not rock-scale hazards.
-- Hazard thresholds are in thresholds.json (rover reference values, not astronaut limits; sources cited there). slope_class_rover_ref.tif is derived from them.
+- Hazard thresholds are in thresholds.json (rover reference values, not astronaut limits; sources cited there). slope_class_rover_ref_v2.tif is derived from them.
 - Mineral targets (CRISM) and environment data are not included yet.
 
 ## Provenance
