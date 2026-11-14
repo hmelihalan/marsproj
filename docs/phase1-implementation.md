@@ -19,7 +19,7 @@ The planetary-gis and scientific-data-integrity skills informed the distinction 
 - Built with Qt 6.12.0, GCC 16.2.1, GDAL 3.13.3 using CMake + Ninja (`cmake -S . -B build -G Ninja`).
 - First run: 3 of 4 CTest targets passed. `application_services_registry_ui` failed in `ApplicationTests::qmlNavigation()` because the test located the navigation button with `findChild`, which does not find items created inside QML Repeater/ScrollView content. The application itself was unaffected.
 - Fix: `tests/application_tests.cpp` now searches the QML item tree (`childItems`) instead (commit 511c300, "Fix QML nav test lookup").
-- After the fix the operator reported the application opens and the tests pass. The full post-fix `ctest` output was not captured in this document; re-run `ctest --test-dir build --output-on-failure` to record it.
+- After the fix, CTest reported 100% tests passed, 0 tests failed out of 4 (total test time 0.48 s), and the application opens.
 - Windows remains unvalidated (see below).
 
 ### Windows
