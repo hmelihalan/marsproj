@@ -14,6 +14,16 @@ The planetary-gis and scientific-data-integrity skills informed the distinction 
 
 ## Validation status
 
+### Linux (Arch/Omarchy)
+
+- Built with Qt 6.12.0, GCC 16.2.1, GDAL 3.13.3 using CMake + Ninja (`cmake -S . -B build -G Ninja`).
+- First run: 3 of 4 CTest targets passed. `application_services_registry_ui` failed in `ApplicationTests::qmlNavigation()` because the test located the navigation button with `findChild`, which does not find items created inside QML Repeater/ScrollView content. The application itself was unaffected.
+- Fix: `tests/application_tests.cpp` now searches the QML item tree (`childItems`) instead (commit 511c300, "Fix QML nav test lookup").
+- After the fix the operator reported the application opens and the tests pass. The full post-fix `ctest` output was not captured in this document; re-run `ctest --test-dir build --output-on-failure` to record it.
+- Windows remains unvalidated (see below).
+
+### Windows
+
 Qt installation initially failed on the C: drive with compiler errors C1088/C1085, “No space left on device.” The generated Qt build directory was moved to D: and installation retried there. Application compilation and Qt tests are pending completion of that installation.
 
 The existing Phase 0 executables were tested after the source changes: 4/4 passed in 0.21 seconds. This does not validate the new Qt sources.
