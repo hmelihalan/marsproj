@@ -46,11 +46,28 @@ Query: MRO CRISM PDS4 MTRDR, product center within lat 18.2-18.7, lon 77.2-77.7 
 | frt00021da6_07_if166j_mtr3 | 2011-12-14 01:27 |
 | hrl000040ff_07_if183j_mtr3 | 2007-01-29 10:49 |
 
-Not yet known: which of these footprints actually cover the pilot box, and their pixel size, CRS and data quality. A product centered inside the search box may still miss the pilot box, and the footprint of one centered outside may cover it.
+## Bounding-box coverage of the pilot box (from ODE metadata)
+
+Pilot box (computed from the README CRS parameters): lon 77.387-77.476 E, lat 18.402-18.487 N. Overlap below uses each product's Min/Max lat/lon from ODE Meta Data, i.e. the **bounding box**. The real footprint is a skewed strip, so true coverage is equal or smaller. Percentages are rough, per-axis.
+
+| Product | Pixel | Lat range | Lon range | Pilot box coverage (bbox) | Incidence | Verdict |
+|---|---|---|---|---|---|---|
+| frt00005c5e_07_if166j | 18 m | 18.3648-18.6352 | 77.2790-77.5586 | full | 63.8 | best candidate |
+| frt0001fb74_07_if166j | 18 m | 18.2698-18.5120 | 77.3984-77.6610 | lat full, lon ~88% (west strip ~0.011 deg missing) | 39.1 | candidate, better lighting |
+| hrl000040ff_07_if183j | 36 m | 18.2766-18.7327 | 77.2752-77.5611 | full | 55.6 | candidate, coarser |
+| frt000047a3_07_if166j | 18 m | 18.4429-18.6881 | 77.3758-77.6420 | lon full, lat ~50% (south missing) | 58.0 | partial |
+| frt00005850_07_if167j | 18 m | 18.1125-18.4291 | 77.1923-77.5035 | lon full, lat ~30% (north part only) | 64.1 | partial |
+| frt000066a4_07_if166j | 18 m | 18.3425-18.5873 | 77.4690-77.7322 | east sliver ~0.007 deg only | 60.0 | marginal, likely none |
+| frt0001ecba_07_if166j | 18 m | 18.2730-18.5079 | 77.6105-77.8662 | none | 45.5 | outside |
+| frt00021da6_07_if166j | 18 m | 18.2684-18.4994 | 77.5012-77.7547 | none | 38.7 | outside |
+
+All labels give Map Scale 18 m/pixel for FRT and 36 m/pixel for HRL (confirmed, replaces the earlier recalled value). Incidence angles are large (39-64 deg), so spectral parameters depend on illumination and cannot be compared across observations without care.
+
+Still unverified: true footprint polygons (bounding boxes overstate coverage), data quality inside the box, bad pixels, and CRS of the .img files.
 
 ## Open items
 
-1. Find which of the 8 products actually cover the pilot box (ODE "View on Map" or product footprint), then read their labels.
+1. Confirm true footprints (not bounding boxes) of frt00005c5e, frt0001fb74 and hrl000040ff against the pilot box, using the small PDS4 .xml labels or ODE Map Context.
 2. Read the label of each overlapping product: pixel size, CRS, parameter definitions, bad-pixel conventions.
 3. Download the SIM 3464 database and measure its offset against `ctx_5m.tif` at several features.
 4. Confirm license and citation text for each source.
