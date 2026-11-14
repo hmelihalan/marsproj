@@ -31,9 +31,26 @@ Pilot box: Jezero Crater, X 4351000-4356000 m, Y 1090800-1095800 m (Mars equirec
 - Olivine-carbonate mineralogy of the Jezero region from CRISM MTRDR (arXiv 1904.11414).
 - Carbonate-bearing units are reported in the delta, margin fractured unit and nearby aeolian bedforms (Stack et al., 2020 unit names).
 
+## ODE search result (2026-11-14, manual query by operator)
+
+Query: MRO CRISM PDS4 MTRDR, product center within lat 18.2-18.7, lon 77.2-77.7 E (ODE searches by product center point, so this is a deliberately wider box than the pilot area). 8 products found. Read from an ODE screenshot; IDs transcribed by hand.
+
+| Product ID | Obs time (UTC) |
+|---|---|
+| frt000047a3_07_if166j_mtr3 | 2007-02-26 04:35 |
+| frt00005850_07_if167j_mtr3 | 2007-04-21 15:45 |
+| frt00005c5e_07_if166j_mtr3 | 2007-05-19 09:31 |
+| frt000066a4_07_if166j_mtr3 | 2007-06-27 10:27 |
+| frt0001ecba_07_if166j_mtr3 | 2011-07-01 15:12 |
+| frt0001fb74_07_if166j_mtr3 | 2011-08-14 19:34 |
+| frt00021da6_07_if166j_mtr3 | 2011-12-14 01:27 |
+| hrl000040ff_07_if183j_mtr3 | 2007-01-29 10:49 |
+
+Not yet known: which of these footprints actually cover the pilot box, and their pixel size, CRS and data quality. A product centered inside the search box may still miss the pilot box, and the footprint of one centered outside may cover it.
+
 ## Open items
 
-1. Run the ODE footprint query for the pilot box and list overlapping CRISM MTRDR observations.
+1. Find which of the 8 products actually cover the pilot box (ODE "View on Map" or product footprint), then read their labels.
 2. Read the label of each overlapping product: pixel size, CRS, parameter definitions, bad-pixel conventions.
 3. Download the SIM 3464 database and measure its offset against `ctx_5m.tif` at several features.
 4. Confirm license and citation text for each source.
